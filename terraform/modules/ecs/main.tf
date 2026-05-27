@@ -15,7 +15,7 @@ resource "aws_ecs_cluster" "main" {
 # ─── CloudWatch Log Group ─────────────────────────────────────────────────────
 resource "aws_cloudwatch_log_group" "ecs" {
   name              = "/ecs/${var.project}-${var.environment}"
-  retention_in_days = 7
+  retention_in_days = 365
 }
 
 # ─── IAM Role for ECS Task Execution ─────────────────────────────────────────
@@ -44,6 +44,7 @@ resource "aws_security_group" "ecs" {
   vpc_id      = var.vpc_id
 
   ingress {
+    description     = "Allow app traffic from ALB"
     from_port       = var.app_port
     to_port         = var.app_port
     protocol        = "tcp"
