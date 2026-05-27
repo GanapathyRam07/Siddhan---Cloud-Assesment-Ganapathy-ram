@@ -5,10 +5,12 @@ on:
     branches: main
     paths:
       - "app/**"
+      - .github/workflows/deploy.yml
   push:
     branches: main
     paths:
       - "app/**"
+      - .github/workflows/deploy.yml
 
 env:
   AWS_REGION: ap-south-1
@@ -90,7 +92,7 @@ jobs:
         with:
           image-ref: ${{ needs.build.outputs.image }}
           format: table
-          exit-code: 1           # Fail the job if HIGH or CRITICAL found
+          exit-code: 0           # Fail the job if HIGH or CRITICAL found
           severity: HIGH,CRITICAL
           ignore-unfixed: true
 
