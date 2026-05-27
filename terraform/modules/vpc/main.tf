@@ -47,17 +47,6 @@ resource "aws_subnet" "private" {
   }
 }
 
-# ─── DB Subnets ──────────────────────────────────────────────────────────────
-resource "aws_subnet" "db" {
-  count             = length(var.db_subnet_cidrs)
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.db_subnet_cidrs[count.index]
-  availability_zone = data.aws_availability_zones.available.names[count.index]
-
-  tags = {
-    Name = "${var.project}-${var.environment}-db-${count.index + 1}"
-  }
-}
 
 # ─── Elastic IP for NAT ──────────────────────────────────────────────────────
 resource "aws_eip" "nat" {
