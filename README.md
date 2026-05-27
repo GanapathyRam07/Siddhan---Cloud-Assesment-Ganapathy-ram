@@ -317,11 +317,8 @@ Estimated monthly cost (ap-south-1):
 
 ## Screenshots
 
-### Terraform Pipeline
-![Terraform Pipeline](screenshots/terraform-pipeline.png)
-
-### Deploy Pipeline
-![Deploy Pipeline](screenshots/deploy-pipeline.png)
+### Pipeline
+![Pipeline](screenshots/pipeline.png)
 
 ### ECS Cluster
 ![ECS Cluster](screenshots/ecs-cluster.png)
