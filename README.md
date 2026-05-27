@@ -298,13 +298,13 @@ Estimated monthly cost (ap-south-1):
 
 | Resource | Specification | Cost |
 |---|---|---|
-| ECS Fargate | 2 tasks, 0.25 vCPU, 0.5 GB | ~$12/month |
-| Application Load Balancer | 1 ALB | ~$18/month |
-| NAT Gateway | 1 NAT GW | ~$35/month |
+| ECS Fargate | 2 tasks, 0.25 vCPU, 0.5 GB | ~$6/month |
+| Application Load Balancer | 1 ALB | ~$16/month |
+| NAT Gateway | 1 NAT GW | ~$34/month |
 | ECR | Storage + transfer | ~$1/month |
-| CloudWatch | Logs + metrics + dashboard | ~$3/month |
+| CloudWatch | Logs + metrics + dashboard | ~$4/month |
 | S3 | Terraform state | < $1/month |
-| **Total** | | **~$69/month** |
+| **Total** | | **~$61/month** |
 
 ### Cost Optimisation Approaches
 - **Fargate Spot** for non-production — up to 70% cost savings
