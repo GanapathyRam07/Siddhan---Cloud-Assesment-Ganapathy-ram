@@ -1,0 +1,12 @@
+{
+  "name": "cloud-assessment-app",
+  "version": "1.0.0",
+  "description": "Simple Express app for cloud assessment",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.0"
+  }
+}
