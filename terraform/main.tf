@@ -19,6 +19,7 @@ module "alb" {
   project           = var.project
   environment       = var.environment
   vpc_id            = module.vpc.vpc_id
+  vpc_cidr          = var.vpc_cidr
   public_subnet_ids = module.vpc.public_subnet_ids
   app_port          = var.app_port
 }
@@ -31,7 +32,6 @@ module "ecs" {
   private_subnet_ids = module.vpc.private_subnet_ids
   target_group_arn   = module.alb.target_group_arn
   alb_sg_id          = module.alb.alb_sg_id
-  app_image          = var.app_image
   app_port           = var.app_port
   aws_region         = var.aws_region
 }
@@ -41,7 +41,6 @@ module "autoscaling" {
   cluster_name = module.ecs.cluster_name
   service_name = module.ecs.service_name
 }
-
 
 module "monitoring" {
   source       = "./modules/monitoring"

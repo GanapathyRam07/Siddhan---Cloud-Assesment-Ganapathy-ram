@@ -1,47 +1,41 @@
 variable "aws_region" {
-  description = "AWS region to deploy resources"
+  description = "AWS region"
   type        = string
   default     = "ap-south-1"
 }
 
 variable "project" {
-  description = "Project name used for naming resources"
+  description = "Project name"
   type        = string
   default     = "cloud-assessment"
 }
 
 variable "environment" {
-  description = "Deployment environment"
+  description = "Environment"
   type        = string
   default     = "prod"
 }
 
 variable "vpc_cidr" {
-  description = "CIDR block for the VPC"
+  description = "CIDR block for VPC"
   type        = string
   default     = "10.0.0.0/16"
 }
 
 variable "public_subnet_cidrs" {
-  description = "CIDR blocks for public subnets"
+  description = "Public subnet CIDRs"
   type        = list(string)
   default     = ["10.0.1.0/24", "10.0.2.0/24"]
 }
 
 variable "private_subnet_cidrs" {
-  description = "CIDR blocks for private subnets"
+  description = "Private subnet CIDRs"
   type        = list(string)
   default     = ["10.0.3.0/24", "10.0.4.0/24"]
 }
 
-
 variable "app_port" {
-  description = "Port the application listens on"
+  description = "Application port"
   type        = number
   default     = 8080
-}
-
-variable "app_image" {
-  description = "Docker image URI from ECR"
-  type        = string
 }

@@ -1,28 +1,23 @@
 # ─── Security Group for ALB ──────────────────────────────────────────────────
 resource "aws_security_group" "alb" {
   name        = "${var.project}-${var.environment}-alb-sg"
-  description = "Allow HTTP and HTTPS inbound traffic to ALB"
+  description = "Allow HTTP inbound traffic to ALB"
   vpc_id      = var.vpc_id
 
   ingress {
+    description = "Allow HTTP from internet"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow outbound to ECS on app port"
+    from_port   = var.app_port
+    to_port     = var.app_port
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
   }
 
   tags = {
@@ -38,7 +33,7 @@ resource "aws_lb" "main" {
   security_groups    = [aws_security_group.alb.id]
   subnets            = var.public_subnet_ids
 
-  enable_deletion_protection = true
+  enable_deletion_protection = false
 
   tags = {
     Name = "${var.project}-${var.environment}-alb"
@@ -70,28 +65,10 @@ resource "aws_lb_target_group" "app" {
   }
 }
 
-# ─── HTTP Listener (redirect to HTTPS) ───────────────────────────────────────
-resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.main.arn
-  port              = 80
-  protocol          = "HTTP"
-
-  default_action {
-    type = "redirect"
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
-    }
-  }
-}
-
-# ─── HTTPS Listener ──────────────────────────────────────────────────────────
-# NOTE: For assessment, using HTTP on 80 directly.
-# In production, replace with an ACM certificate ARN and use HTTPS.
+# ─── HTTP Listener ────────────────────────────────────────────────────────────
 resource "aws_lb_listener" "app" {
   load_balancer_arn = aws_lb.main.arn
-  port              = var.app_port
+  port              = 80
   protocol          = "HTTP"
 
   default_action {
