@@ -49,4 +49,5 @@ module "monitoring" {
   cluster_name = module.ecs.cluster_name
   service_name = module.ecs.service_name
   alb_arn      = module.alb.alb_arn
+  aws_region   = var.aws_region
 }

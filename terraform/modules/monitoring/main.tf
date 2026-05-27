@@ -1,42 +1,72 @@
-# ─── CloudWatch Dashboard ────────────────────────────────────────────────────
+# ─── CloudWatch Dashboard ─────────────────────────────────────────────────────
 resource "aws_cloudwatch_dashboard" "main" {
   dashboard_name = "${var.project}-${var.environment}"
 
   dashboard_body = jsonencode({
     widgets = [
       {
-        type = "metric"
+        type   = "metric"
+        x      = 0
+        y      = 0
+        width  = 8
+        height = 6
         properties = {
-          title  = "ECS CPU Utilization"
-          period = 60
+          title   = "ECS CPU Utilization"
+          region  = var.aws_region
+          period  = 60
+          stat    = "Average"
+          view    = "timeSeries"
           metrics = [
             ["AWS/ECS", "CPUUtilization",
               "ClusterName", var.cluster_name,
               "ServiceName", var.service_name]
           ]
+          annotations = {
+            horizontal = []
+          }
         }
       },
       {
-        type = "metric"
+        type   = "metric"
+        x      = 8
+        y      = 0
+        width  = 8
+        height = 6
         properties = {
-          title  = "ECS Memory Utilization"
-          period = 60
+          title   = "ECS Memory Utilization"
+          region  = var.aws_region
+          period  = 60
+          stat    = "Average"
+          view    = "timeSeries"
           metrics = [
             ["AWS/ECS", "MemoryUtilization",
               "ClusterName", var.cluster_name,
               "ServiceName", var.service_name]
           ]
+          annotations = {
+            horizontal = []
+          }
         }
       },
       {
-        type = "metric"
+        type   = "metric"
+        x      = 16
+        y      = 0
+        width  = 8
+        height = 6
         properties = {
-          title  = "ALB Request Count"
-          period = 60
+          title   = "ALB Request Count"
+          region  = var.aws_region
+          period  = 60
+          stat    = "Sum"
+          view    = "timeSeries"
           metrics = [
             ["AWS/ApplicationELB", "RequestCount",
               "LoadBalancer", var.alb_arn]
           ]
+          annotations = {
+            horizontal = []
+          }
         }
       }
     ]
