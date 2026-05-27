@@ -2,12 +2,14 @@ name: Application Build and Deploy
 
 on:
   pull_request:
-    branches: main
+    branches:
+      - main
     paths:
       - "app/**"
       - .github/workflows/deploy.yml
   push:
-    branches: main
+    branches:
+      - main
     paths:
       - "app/**"
       - .github/workflows/deploy.yml
