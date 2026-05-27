@@ -5,6 +5,9 @@ on:
     branches: main
     paths:
       - "terraform/**"
+      - .github/workflows/terraform.yml
+
+
 
 env:
   AWS_REGION: ap-south-1
